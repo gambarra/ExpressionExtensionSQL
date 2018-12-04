@@ -33,14 +33,13 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <param name="appenOnly">The type of command to execute.</param>
         /// <returns></returns>
         public static IEnumerable<dynamic> Query(this IDbConnection cnn,
             string sql,
             Expression<Func<dynamic, bool>> expression,
             IDbTransaction transaction = null,
             bool buffered = true,
-            int? commandTimeout = null, CommandType? commandType = null, bool appenOnly = false) {
+            int? commandTimeout = null, CommandType? commandType = null) {
 
             var whereSql = GetWhere(expression, sql);
             return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, commandType);
@@ -56,7 +55,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -88,7 +87,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -123,7 +122,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -157,7 +156,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -192,7 +191,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -228,7 +227,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="sql">The SQL to execute for this query.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <param name="param">The parameters to use for this query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
@@ -243,8 +242,7 @@ namespace ExpressionExtensionSQL.Dapper {
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
             CommandType? commandType = null) {
-
-
+            
             var whereSql = GetWhere(expression, sql);
 
             return cnn.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth,TSeventh, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
