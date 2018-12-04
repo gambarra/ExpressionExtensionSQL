@@ -22,3 +22,12 @@ E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.AssemblyInfo.cs
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.dll
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.deps.json
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.dll
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.csprojAssemblyReference.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.csproj.CoreCompileInputs.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.AssemblyInfoInputs.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.AssemblyInfo.cs
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.dll
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.pdb

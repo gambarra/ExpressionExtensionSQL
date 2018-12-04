@@ -22,3 +22,15 @@ E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\nets
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.dll
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
 E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.csproj.CopyComplete
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.deps.json
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.dll
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.pdb
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.dll
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\bin\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.csprojAssemblyReference.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.csproj.CoreCompileInputs.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.AssemblyInfoInputs.cache
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.AssemblyInfo.cs
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.csproj.CopyComplete
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.dll
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL.Dapper\obj\Debug\netstandard2.0\ExpressionExtensionSQL.Dapper.pdb

@@ -9,7 +9,7 @@ namespace ExpressionExtensionSQL.Dapper {
     public static class DapperExtension {
 
 
-        private static KeyValuePair<string, DynamicParameters> GetWhere(Expression<Func<dynamic, bool>> expression, string sql) {
+        private static KeyValuePair<string, DynamicParameters> GetWhere<TReturn>(Expression<Func<TReturn, bool>> expression, string sql) {
             var whereSql = expression.ToSql();
             var parameter = new DynamicParameters();
 
@@ -65,7 +65,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
@@ -97,7 +97,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
@@ -132,7 +132,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
@@ -166,7 +166,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
@@ -201,7 +201,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
@@ -237,7 +237,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn,
             string sql,
-            Expression<Func<dynamic, bool>> expression,
+            Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh,TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",

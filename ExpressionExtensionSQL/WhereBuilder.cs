@@ -95,7 +95,7 @@ namespace ExpressionExtensionSQL {
         }
 
         private static object GetValue(Expression member) {
-            // source: http://stackoverflow.com/a/2616980/291955
+       
             var objectMember = Expression.Convert(member, typeof(object));
             var getterLambda = Expression.Lambda<Func<object>>(objectMember);
             var getter = getterLambda.Compile();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExpressionExtensionSQL.Test.Entities {
+namespace ExpressionExtensionSQL.Tests.Entities {
     public class Order {
 
         public int Id { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExpressionExtensionSQL.Test.Entities {
+namespace ExpressionExtensionSQL.Tests.Entities {
     public class Merchant {
 
         public int Id { get; set; }
