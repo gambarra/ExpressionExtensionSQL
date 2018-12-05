@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ExpressionExtensionSQL.Tests.Entities {
+    [TableName("tblOrder")]
     public class Order {
 
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
+        [ColumnName("amount")]
         public int TotalAmount { get; set; }
         public IList<Item> items { get; set; }
 

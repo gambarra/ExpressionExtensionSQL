@@ -31,3 +31,4 @@ C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandar
 C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.AssemblyInfo.cs
 C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.dll
 C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
+E:\workspace\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.csprojAssemblyReference.cache

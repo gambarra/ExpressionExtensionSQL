@@ -13,6 +13,12 @@ namespace ExpressionExtensionSQL.Test {
             var where = expression.ToSql();
             where.Sql.Should().Be("([Merchant].[Name] = @1)");
         }
+        [Fact(DisplayName = "SingleExpression - Annotation - Equal")]
+        public void EqualWithAnnotationExpression() {
+            Expression<Func<Order, bool>> expression = x => x.TotalAmount==1;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([tblOrder].[amount] = 1)");
+        }
 
         [Fact(DisplayName = "SingleExpression - NotEqual")]
         public void NotEqualExpression() {

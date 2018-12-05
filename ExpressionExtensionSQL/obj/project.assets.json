@@ -30,7 +30,7 @@
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "sha512": "2TrLMDnbaLRB/acXE54G91EprJ/+qFtmfGqRFNybM71LIyvky2tELPPXvOhniO0Pgtxwaa14yVimbpcmTSuvkw==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -176,23 +176,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tgambarra\\.nuget\\packages\\": {},
+    "C:\\Users\\Gambarra\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
+      "projectUniqueName": "E:\\workspace\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
       "projectName": "ExpressionExtensionSQL",
-      "projectPath": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
-      "packagesPath": "C:\\Users\\tgambarra\\.nuget\\packages\\",
-      "outputPath": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\obj\\",
+      "projectPath": "E:\\workspace\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
+      "packagesPath": "C:\\Users\\Gambarra\\.nuget\\packages\\",
+      "outputPath": "E:\\workspace\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\tgambarra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gambarra\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -200,8 +200,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nugetserver.mundipagg.com/nuget": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
