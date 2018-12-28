@@ -104,6 +104,13 @@ namespace ExpressionExtensionSQL {
             return attributeName.GetName();
         }
         private static string GetName<T>(Type type) where T : IAttributeName {
+            if (Configuration.GetColumnsMap() != null)
+            {
+                var result = Configuration.GetColumnsMap().FirstOrDefault(p => p.Key == type.Name).Value;
+                if (result != null)
+                    return result;
+            }
+
             var attributes = type.GetCustomAttributes(typeof(T), false).AsList();
             if (attributes.Count != 1) return type.Name;
 
