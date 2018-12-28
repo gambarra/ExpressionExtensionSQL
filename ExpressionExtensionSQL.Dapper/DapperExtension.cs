@@ -247,6 +247,19 @@ namespace ExpressionExtensionSQL.Dapper {
 
             return cnn.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth,TSeventh, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
         }
- 
+
+        /// <summary>
+        /// Execute Scalar
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TReturn"></typeparam>
+        /// <param name="cnn"></param>
+        /// <param name="sql"></param>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public static T ExecuteScalar<T,TReturn>(this IDbConnection cnn, string sql, Expression<Func<TReturn, bool>> expression) {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.ExecuteScalar<T>(sql);
+        }
     }
 }
