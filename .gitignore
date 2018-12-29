@@ -9,6 +9,9 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
