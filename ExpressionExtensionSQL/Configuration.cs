@@ -6,25 +6,35 @@ namespace ExpressionExtensionSQL
 
     public class Configuration
     {
-        private static IDictionary<string, string> ColumnsMap;
- 
-        public static bool SetColumnMap<T>(string tableName)
-        {
-            if (ColumnsMap == null)
-                ColumnsMap = new Dictionary<string, string>();
 
-            if (ColumnsMap.Keys.Any(p => p.Equals(typeof(T).Name, StringComparison.CurrentCultureIgnoreCase)))
-                return false;
-
-            if (ColumnsMap.Values.Any(p => p.Equals(tableName, StringComparison.CurrentCultureIgnoreCase)))
-                return false;
-
-            ColumnsMap.Add(new KeyValuePair<string, string>(typeof(T).Name, tableName));
-
-            return true;
+        private static Configuration instance=null;
+        public static Configuration GetInstance() {
+            if (instance == null)
+                instance = new Configuration();
+            return instance;
         }
 
-        public static IDictionary<string, string> GetColumnsMap() => ColumnsMap;
+        private  List<IEntityMap> entitiesMaps;
+        private List<IPropertyMap> propertiesMaps;
+
+        internal List<IEntityMap> Entities() {
+            return entitiesMaps;
+        }
+        internal List<IPropertyMap> Properties() {
+            return propertiesMaps;
+        }
+        internal void AddEntity(IEntityMap entity) {
+
+            if (entitiesMaps == null)
+                this.entitiesMaps = new List<IEntityMap>();
+            this.entitiesMaps.Add(entity);
+        }
+        internal void AddProperty(IPropertyMap propertyMap) {
+            if (propertiesMaps == null)
+                this.propertiesMaps = new List<IPropertyMap>();
+            this.propertiesMaps.Add(propertyMap);
+        }
+
 
     }
 }

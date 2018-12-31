@@ -1,4 +1,5 @@
-﻿using ExpressionExtensionSQL.Tests.Entities;
+﻿using ExpressionExtensionSQL.Extensions;
+using ExpressionExtensionSQL.Tests.Entities;
 using FluentAssertions;
 using System;
 using System.Linq.Expressions;
@@ -84,10 +85,12 @@ namespace ExpressionExtensionSQL.Test
         [Fact(DisplayName = "SingleExpression - FluentMap - Equal")]
         public void EqualWithFluentMapExpression()
         {
-            Configuration.SetColumnMap<Product>("tblproduto");
-            Expression<Func<Product, bool>> expression = x => x.Amount == 1;
+
+            Configuration.GetInstance().Entity<Order>().ToTable("tblTeste");
+            Configuration.GetInstance().Entity<Order>().Property(p => p.TotalAmount).ToColumn("valor");
+            Expression<Func<Order, bool>> expression = x => x.TotalAmount == 1;
             var where = expression.ToSql();
-            where.Sql.Should().Be("([tblproduto].[Amount] = 1)");
+            where.Sql.Should().Be("([tblTeste].[valor] = 1)");
         }
     }
 }

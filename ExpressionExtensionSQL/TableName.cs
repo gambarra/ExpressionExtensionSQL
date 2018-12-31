@@ -3,13 +3,15 @@
 namespace ExpressionExtensionSQL {
     [AttributeUsage(AttributeTargets.Class)]
     public class TableName : Attribute, IAttributeName {
+
+        private string name;
         public TableName(string name) {
-            this.Name = name;
+            this.name = name;
         }
-        public string Name { get; }
+        
 
         public string GetName() {
-            return Name;
+            return name;
         }
     }
 }

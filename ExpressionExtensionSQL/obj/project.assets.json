@@ -30,12 +30,11 @@
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "bLpT1f/SFlO1CzqXG12KnJzpZs6lv24uX2Rzi4Fmm0noJpNlnWRVryuO3yK18Ca04t/YHcO1e1Z0WDfjseqNzw==",
+      "sha512": "2TrLMDnbaLRB/acXE54G91EprJ/+qFtmfGqRFNybM71LIyvky2tELPPXvOhniO0Pgtxwaa14yVimbpcmTSuvkw==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -178,23 +177,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tgambarra\\.nuget\\packages\\": {},
+    "C:\\Users\\Gambarra\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.1.0",
     "restore": {
-      "projectUniqueName": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
+      "projectUniqueName": "E:\\github\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
       "projectName": "ExpressionExtensionSQL",
-      "projectPath": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
-      "packagesPath": "C:\\Users\\tgambarra\\.nuget\\packages\\",
-      "outputPath": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\obj\\",
+      "projectPath": "E:\\github\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
+      "packagesPath": "C:\\Users\\Gambarra\\.nuget\\packages\\",
+      "outputPath": "E:\\github\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\tgambarra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gambarra\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

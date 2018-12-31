@@ -80,10 +80,10 @@ namespace ExpressionExtensionSQL {
                 return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsParameter(i++, true));
             }
 
-            if (member.Member is PropertyInfo && left) {            
+            if (member.Member is PropertyInfo && left) {
                 var property = (PropertyInfo)member.Member;
                 var colName = GetName<ColumnName>(property);
-                var tableName = GetName<TableName>(property.DeclaringType);  
+                var tableName = GetName<TableName>(property.DeclaringType);
                 return WherePart.IsSql($"[{tableName}].[{ colName }]");
             }
             if (member.Member is FieldInfo || left == false) {
@@ -96,7 +96,13 @@ namespace ExpressionExtensionSQL {
             throw new Exception($"Expression does not refer to a property or field: {expression}");
         }
 
-        private static string GetName<T>(PropertyInfo pi) where T: IAttributeName {
+        private static string GetName<T>(PropertyInfo pi) where T : IAttributeName {
+
+            if (Configuration.GetInstance().Properties() != null) {
+                var result = Configuration.GetInstance().Properties().FirstOrDefault(p => p.Type() == pi);
+                if (result != null)
+                    return result.GetColumnName();
+            }
             var attributes = pi.GetCustomAttributes(typeof(T), false).AsList();
             if (attributes.Count != 1) return pi.Name;
 
@@ -104,11 +110,12 @@ namespace ExpressionExtensionSQL {
             return attributeName.GetName();
         }
         private static string GetName<T>(Type type) where T : IAttributeName {
-            if (Configuration.GetColumnsMap() != null)
-            {
-                var result = Configuration.GetColumnsMap().FirstOrDefault(p => p.Key == type.Name).Value;
+            if (Configuration.GetInstance().Entities() != null) {
+                var result = Configuration.GetInstance()
+                    .Entities()
+                    .FirstOrDefault(p => p.Name().Equals(type.Name,StringComparison.CurrentCultureIgnoreCase));
                 if (result != null)
-                    return result;
+                    return result.GetTableName();
             }
 
             var attributes = type.GetCustomAttributes(typeof(T), false).AsList();
