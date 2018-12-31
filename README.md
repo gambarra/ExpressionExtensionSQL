@@ -19,7 +19,7 @@ Samples:
 
 ```
 Example usage:
-
+```
 ```csharp
  Expression<Func<Merchant, bool>> expression = x => x.Name == "merchant1" && x.CreatedAt>=DateTime.Now;
  var where = expression.ToSql();
@@ -27,7 +27,7 @@ Example usage:
  
 ```
 The code return will be:
-```text
+```
 ([Merchant].[Name] = @1) AND ([Merchant].[CreatedAt]>=@2)
 ```
 
