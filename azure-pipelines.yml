@@ -34,6 +34,8 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: NuGetCommand@2
+  displayName: 'NuGet push'
   inputs:
-    command: pack
-    packagesToPack: '**/*.csproj'
+    command: push
+    publishVstsFeed: 'af432f1b-f4b2-4a4f-bc9c-fef924f8f823'
+    allowPackageConflicts: true
