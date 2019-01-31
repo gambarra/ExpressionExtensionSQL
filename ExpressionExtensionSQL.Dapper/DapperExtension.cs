@@ -249,6 +249,22 @@ namespace ExpressionExtensionSQL.Dapper {
         }
 
         /// <summary>
+        /// Executes a query, returning the data typed as T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cnn"></param>
+        /// <param name="sql"></param>
+        /// <param name="expression"></param>
+        /// <param name="transaction"></param>
+        /// <param name="buffered"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Query<T>(this IDbConnection cnn, string sql, Expression<Func<T, bool>> expression, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query<T>(whereSql.Key, whereSql.Value, transaction:transaction,buffered:buffered,commandTimeout:commandTimeout,commandType:commandType);
+        }
+        /// <summary>
         /// Execute Scalar
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -259,7 +275,7 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <returns></returns>
         public static T ExecuteScalar<T,TReturn>(this IDbConnection cnn, string sql, Expression<Func<TReturn, bool>> expression) {
             var whereSql = GetWhere(expression, sql);
-            return cnn.ExecuteScalar<T>(sql);
+            return cnn.ExecuteScalar<T>(whereSql.Key, whereSql.Value);
         }
     }
 }
