@@ -32,3 +32,27 @@ The code return will be:
 ```
 
 **where.Parameters** contains a list of parameters that can be used in ADO queries.
+
+
+
+ExpressExtensionSQL.Dapper
+--------
+ExpressionExtensionSQL.Dapper is an extension to the dapper that allows you to use lambda expressions as filters in your Query.
+
+Samples:
+```csharp
+
+        public IQueryable<Period> GetAll(Expression<Func<Order, bool> filter) {
+
+            var query = $@"SELECT * FROM [Order]
+                            {{where}}"
+
+            var connection = this.GetConnection();
+
+            return connection.Query<Order>(query, expression: filter);
+         }
+```
+```csharp
+var result=OrderRepository.GetAll(p=>p.CreatedAt>=DateTime.Now);
+```
+In the above example it is important to note the use of {where}. This keyword will tell you where to include the where clause extracted from the expression.
