@@ -96,7 +96,7 @@ The **Configuration** class is static and can be used anywhere on your system an
 
 ExpressExtensionSQL.Dapper
 --------
-ExpressionExtensionSQL.Dapper is an extension to the dapper that allows you to use lambda expressions as filters in your Query.
+ExpressionExtensionSQL.Dapper is an dapper extension that allows you to use lambda expressions as filters in your Query.
 
 Samples:
 ```csharp
