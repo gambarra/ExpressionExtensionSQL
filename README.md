@@ -33,7 +33,66 @@ The code return will be:
 
 **where.Parameters** contains a list of parameters that can be used in ADO queries.
 
+In many cases the name of the table or column in the database is different from the name of the entity or property. For these cases this framework allows to create a mapping through attribute or fluent mapping.
 
+## Attribute 
+
+Class
+
+```csharp
+   [TableName("tblOrder")]
+    public class Order {
+
+        public int Id { get; set; }
+        public DateTime CreatedAt { get; set; }
+        [ColumnName("amount")]
+        public int TotalAmount { get; set; }
+    }
+```
+```
+Example usage:
+```
+```csharp
+ Expression<Func<Order, bool>> expression = x => x.TotalAmount >10 && x.CreatedAt>=DateTime.Now;
+ var where = expression.ToSql();
+ Console.Write(where.Sql);
+ 
+```
+The code return will be:
+```
+([tblOrder].[amount] = @1) AND ([tblOrder].[CreatedAt]>=@2)
+```
+
+## Fluent Mapping
+Class
+
+```csharp
+    public class Order {
+
+        public int Id { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int TotalAmount { get; set; }
+    }
+```
+```
+Example usage:
+```
+```csharp
+
+ Configuration.GetInstance().Entity<Order>().ToTable("tblTeste");
+ Configuration.GetInstance().Entity<Order>().Property(p => p.TotalAmount).ToColumn("valor");
+ 
+ Expression<Func<Order, bool>> expression = x => x.TotalAmount >10 && x.CreatedAt>=DateTime.Now;
+ var where = expression.ToSql();
+ Console.Write(where.Sql);
+ 
+```
+The code return will be:
+```
+([tblTeste].[valor] = @1) AND ([tblTeste].[CreatedAt]>=@2)
+```
+
+The **Configuration** class is static and can be used anywhere on your system and the configured mapping is reused for all expressions that contain the mapped entity
 
 ExpressExtensionSQL.Dapper
 --------
