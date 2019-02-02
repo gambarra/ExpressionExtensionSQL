@@ -26,7 +26,7 @@ Example usage:
  Console.Write(where.Sql);
  
 ```
-The code return will be:
+Output will be:
 ```
 ([Merchant].[Name] = @1) AND ([Merchant].[CreatedAt]>=@2)
 ```
@@ -58,7 +58,7 @@ Example usage:
  Console.Write(where.Sql);
  
 ```
-The code return will be:
+Output will be:
 ```
 ([tblOrder].[amount] = @1) AND ([tblOrder].[CreatedAt]>=@2)
 ```
@@ -87,7 +87,7 @@ Example usage:
  Console.Write(where.Sql);
  
 ```
-The code return will be:
+Output will be:
 ```
 ([tblTeste].[valor] = @1) AND ([tblTeste].[CreatedAt]>=@2)
 ```
