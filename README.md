@@ -13,7 +13,7 @@ Nugget feed: https://www.nuget.org/packages/ExpressionExtensionSQL/
 
 Features
 --------
-ExpressionExtensionSQL is a [NuGet library](https://www.nuget.org/packages/ExpressionExtensionSQL) which you can add to your project to achieve lambda expression in SQL code. It allows your domain not need to understand SQL language mainly for creating filters. Very suitable for use with [SpecificationPattern](https://en.wikipedia.org/wiki/Specification_pattern).
+ExpressionExtensionSQL is a [NuGet library](https://www.nuget.org/packages/ExpressionExtensionSQL) which you can add to your project to achieve lambda expression in SQL code. It allows your domain doesn't need to understand  SQL language mainly for creating filters. Very suitable for use with [SpecificationPattern](https://en.wikipedia.org/wiki/Specification_pattern).
 
 Samples:
 
