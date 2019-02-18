@@ -52,6 +52,9 @@ namespace ExpressionExtensionSQL {
             if (methodCall.Method == typeof(string).GetMethod("EndsWith", new[] { typeof(string) })) {
                 return WherePart.Concat(Recurse(ref i, methodCall.Object), "LIKE", Recurse(ref i, methodCall.Arguments[0], prefix: "%"));
             }
+            if(methodCall.Method==typeof(string).GetMethod("Equals",new[] { typeof(string)})) {
+                return WherePart.Concat(Recurse(ref i, methodCall.Object), "=", Recurse(ref i, methodCall.Arguments[0],left:false));
+            }
             // IN queries:
             if (methodCall.Method.Name == "Contains") {
                 Expression collection;

@@ -40,3 +40,4 @@ E:\github\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0
 E:\github\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.deps.json
 E:\github\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.dll
 E:\github\ExpressionExtensionSQL\ExpressionExtensionSQL\bin\Debug\netstandard2.0\ExpressionExtensionSQL.pdb
+C:\workfolder\ExpressionExtensionSQL\ExpressionExtensionSQL\obj\Debug\netstandard2.0\ExpressionExtensionSQL.csprojAssemblyReference.cache
