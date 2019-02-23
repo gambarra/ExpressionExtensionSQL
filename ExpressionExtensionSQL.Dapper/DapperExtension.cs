@@ -10,7 +10,7 @@ namespace ExpressionExtensionSQL.Dapper {
 
 
         private static KeyValuePair<string, DynamicParameters> GetWhere<TReturn>(Expression<Func<TReturn, bool>> expression, string sql) {
-            var whereSql = expression.ToSql();
+            var whereSql = expression?.ToSql() ?? WherePart.Empty;
             var parameter = new DynamicParameters();
 
             if (whereSql != null) {

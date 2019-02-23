@@ -56,5 +56,7 @@ namespace ExpressionExtensionSQL {
                 Sql = $"({left.Sql} {@operator} {right.Sql})"
             };
         }
+
+        public static WherePart Empty => new WherePart { Sql = string.Empty };
     }
 }
