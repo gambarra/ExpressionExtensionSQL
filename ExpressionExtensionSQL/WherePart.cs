@@ -8,6 +8,7 @@ namespace ExpressionExtensionSQL {
     public class WherePart {
 
         public string Sql { get;  set; }
+        public bool HasSql => !string.IsNullOrEmpty(Sql);
 
         public Dictionary<string, object> Parameters { get; private set; } = new Dictionary<string, object>();
 
@@ -56,5 +57,7 @@ namespace ExpressionExtensionSQL {
                 Sql = $"({left.Sql} {@operator} {right.Sql})"
             };
         }
+
+        public static WherePart Empty => new WherePart { Sql = string.Empty };
     }
 }
