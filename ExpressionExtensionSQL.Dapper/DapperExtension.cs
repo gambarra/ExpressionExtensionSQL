@@ -13,12 +13,10 @@ namespace ExpressionExtensionSQL.Dapper {
             var whereSql = expression?.ToSql() ?? WherePart.Empty;
             var parameter = new DynamicParameters();
 
-            if (whereSql != null) {
-                foreach (var param in whereSql.Parameters) {
-                    parameter.Add(param.Key, param.Value);
-                }
-                sql = sql.Replace("{where}", " WHERE " + whereSql.Sql);
+            foreach (var param in whereSql.Parameters) {
+                parameter.Add(param.Key, param.Value);
             }
+            sql = sql.Replace("{where}", whereSql.HasSql ? " WHERE " + whereSql.Sql : string.Empty);
 
             return new KeyValuePair<string, DynamicParameters>(sql, parameter);
         }
