@@ -80,7 +80,7 @@ namespace ExpressionExtensionSQL {
             var member = (MemberExpression)expression;
 
             if (isUnary && member.Type == typeof(bool)) {
-                return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsParameter(i++, true));
+                return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsSql("1"));
             }
 
             if (member.Member is PropertyInfo && left) {
@@ -131,14 +131,18 @@ namespace ExpressionExtensionSQL {
         private static WherePart ConstantExpressionExtract(ref int i, Expression expression, bool isUnary, string prefix, string postfix) {
             var constant = (ConstantExpression)expression;
             var value = constant.Value;
+
+            if (value is null) {
+                return WherePart.IsSql("NULL");
+            }
             if (value is int) {
                 return WherePart.IsSql(value.ToString());
             }
             if (value is string) {
                 value = prefix + (string)value + postfix;
             }
-            if (value is bool && isUnary) {
-                return WherePart.Concat(WherePart.IsParameter(i++, value), "=", WherePart.IsSql("1"));
+            if (value is bool && !isUnary) {
+                return WherePart.IsSql(((bool)value) ? "1" : "0");
             }
             return WherePart.IsParameter(i++, value);
         }
