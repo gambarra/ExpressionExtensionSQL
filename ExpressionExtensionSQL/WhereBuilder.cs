@@ -77,7 +77,7 @@ namespace ExpressionExtensionSQL {
             var member = (MemberExpression)expression;
 
             if (isUnary && member.Type == typeof(bool)) {
-                return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsParameter(i++, true));
+                return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsSql("1"));
             }
 
             if (member.Member is PropertyInfo && left) {
@@ -138,11 +138,8 @@ namespace ExpressionExtensionSQL {
             if (value is string) {
                 value = prefix + (string)value + postfix;
             }
-            if (value is bool) {
-                var boolString = ((bool)value) == true ? "1" : "0";
-                return isUnary ?
-                    WherePart.Concat(WherePart.IsParameter(i++, value), "=", WherePart.IsSql(boolString)) :
-                    WherePart.IsSql(boolString);
+            if (value is bool && !isUnary) {
+                return WherePart.IsSql(((bool)value) ? "1" : "0");
             }
             return WherePart.IsParameter(i++, value);
         }

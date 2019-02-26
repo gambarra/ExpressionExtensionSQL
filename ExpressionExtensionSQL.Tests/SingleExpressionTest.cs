@@ -138,7 +138,7 @@ namespace ExpressionExtensionSQL.Test
         {
             Expression<Func<Merchant, bool>> expression = x => !x.IsEnabled;
             var where = expression.ToSql();
-            where.Sql.Should().Be("([Merchant].[IsEnabled] = 0)");
+            where.Sql.Should().Be("(NOT ([Merchant].[IsEnabled] = 1))");
         }
     }
 }
