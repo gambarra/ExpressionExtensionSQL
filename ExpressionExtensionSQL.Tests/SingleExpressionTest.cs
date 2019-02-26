@@ -92,5 +92,21 @@ namespace ExpressionExtensionSQL.Test
             var where = expression.ToSql();
             where.Sql.Should().Be("([tblTeste].[valor] = 1)");
         }
+
+        [Fact(DisplayName = "SingleExpression - IS NULL")]
+        public void IsNullExpression()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.DeletedAt == null;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[DeletedAt] IS NULL)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - IS NOT NULL")]
+        public void IsNotNullExpression()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.DeletedAt != null;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[DeletedAt] IS NOT NULL)");
+        }
     }
 }

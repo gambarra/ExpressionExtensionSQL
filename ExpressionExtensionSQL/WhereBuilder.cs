@@ -128,6 +128,10 @@ namespace ExpressionExtensionSQL {
         private static WherePart ConstantExpressionExtract(ref int i, Expression expression, bool isUnary, string prefix, string postfix) {
             var constant = (ConstantExpression)expression;
             var value = constant.Value;
+
+            if (value is null) {
+                return WherePart.IsSql("NULL");
+            }
             if (value is int) {
                 return WherePart.IsSql(value.ToString());
             }
