@@ -138,8 +138,11 @@ namespace ExpressionExtensionSQL {
             if (value is string) {
                 value = prefix + (string)value + postfix;
             }
-            if (value is bool && isUnary) {
-                return WherePart.Concat(WherePart.IsParameter(i++, value), "=", WherePart.IsSql("1"));
+            if (value is bool) {
+                var boolString = ((bool)value) == true ? "1" : "0";
+                return isUnary ?
+                    WherePart.Concat(WherePart.IsParameter(i++, value), "=", WherePart.IsSql(boolString)) :
+                    WherePart.IsSql(boolString);
             }
             return WherePart.IsParameter(i++, value);
         }

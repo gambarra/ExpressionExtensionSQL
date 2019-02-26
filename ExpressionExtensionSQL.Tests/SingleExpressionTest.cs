@@ -108,5 +108,37 @@ namespace ExpressionExtensionSQL.Test
             var where = expression.ToSql();
             where.Sql.Should().Be("([Merchant].[DeletedAt] IS NOT NULL)");
         }
+
+        [Fact(DisplayName = "SingleExpression - boolean - true")]
+        public void BooleanExpressionTrue()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled == true;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 1)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - false")]
+        public void BooleanExpressionFalse()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled == false;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 0)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - true - unary")]
+        public void BooleanExpressionTrueUnary()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 1)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - false - unary")]
+        public void BooleanExpressionFalseUnary()
+        {
+            Expression<Func<Merchant, bool>> expression = x => !x.IsEnabled;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 0)");
+        }
     }
 }
