@@ -49,6 +49,31 @@ namespace ExpressionExtensionSQL.Dapper {
         /// Perform a multi-mapping query with 2 input types. 
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
+        /// <typeparam name="TReturn">The combined type to return.</typeparam>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer the results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns></returns>
+        public static IEnumerable<TReturn> Query<TReturn>(this IDbConnection cnn,
+            string sql,
+            Expression<Func<TReturn, bool>> expression,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            int? commandTimeout = null, CommandType? commandType = null)
+        {
+
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query<TReturn>(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        /// Perform a multi-mapping query with 2 input types. 
+        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>

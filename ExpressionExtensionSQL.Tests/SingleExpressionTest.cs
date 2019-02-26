@@ -140,5 +140,18 @@ namespace ExpressionExtensionSQL.Test
             var where = expression.ToSql();
             where.Sql.Should().Be("(NOT ([Merchant].[IsEnabled] = 1))");
         }
+
+        [Fact(DisplayName = "SingleExpression - generic filter")]
+        public void GenericFilter()
+        {
+            Expression<Func<Merchant, bool>> expression = x => !x.IsEnabled;
+            var where = Generic(expression);
+            where.Sql.Should().Be("(NOT ([Merchant].[IsEnabled] = 1))");
+        }
+
+        private WherePart Generic<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : Entity
+        {
+            return expression.ToSql();
+        }
     }
 }
