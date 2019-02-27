@@ -63,6 +63,36 @@ Output will be:
 ([tblOrder].[amount] = @1) AND ([tblOrder].[CreatedAt]>=@2)
 ```
 
+### Classes that have inheritance, their superclasses must be defined as abstract. Otherwise, the table name will be equivalent to that of the parent class.
+```
+Example usage:
+```
+If the classes are declared like below:
+```
+public class Entity {
+    public int Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+public class Merchant : Entity {        
+    public string Name { get; set; }
+}
+
+...
+
+Expression<Func<Merchant, bool>> expression = x => x.Id == 1;
+ var where = expression.ToSql();
+ Console.Write(where.Sql);
+```
+The previous usage example, will be output like this:
+```
+([Entity].[Id] = @1)
+```
+
+But, if the **Entity** class was an abstract class, the output would be like this:
+```
+([Merchant].[Id] = @1)
+```
+
 ## Fluent Mapping
 Class
 
