@@ -92,5 +92,53 @@ namespace ExpressionExtensionSQL.Test
             var where = expression.ToSql();
             where.Sql.Should().Be("([tblTeste].[valor] = 1)");
         }
+
+        [Fact(DisplayName = "SingleExpression - IS NULL")]
+        public void IsNullExpression()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.DeletedAt == null;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[DeletedAt] IS NULL)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - IS NOT NULL")]
+        public void IsNotNullExpression()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.DeletedAt != null;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[DeletedAt] IS NOT NULL)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - true")]
+        public void BooleanExpressionTrue()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled == true;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 1)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - false")]
+        public void BooleanExpressionFalse()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled == false;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 0)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - true - unary")]
+        public void BooleanExpressionTrueUnary()
+        {
+            Expression<Func<Merchant, bool>> expression = x => x.IsEnabled;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("([Merchant].[IsEnabled] = 1)");
+        }
+
+        [Fact(DisplayName = "SingleExpression - boolean - false - unary")]
+        public void BooleanExpressionFalseUnary()
+        {
+            Expression<Func<Merchant, bool>> expression = x => !x.IsEnabled;
+            var where = expression.ToSql();
+            where.Sql.Should().Be("(NOT ([Merchant].[IsEnabled] = 1))");
+        }
     }
 }

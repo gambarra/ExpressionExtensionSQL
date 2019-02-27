@@ -359,7 +359,7 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "ExpressionExtensionSQL/1.1.0": {
+      "ExpressionExtensionSQL/1.2.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -388,7 +388,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "bLpT1f/SFlO1CzqXG12KnJzpZs6lv24uX2Rzi4Fmm0noJpNlnWRVryuO3yK18Ca04t/YHcO1e1Z0WDfjseqNzw==",
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -1122,12 +1122,11 @@
       ]
     },
     "System.Reflection.Emit.ILGeneration/4.3.0": {
-      "sha512": "+rD+UzHYxfXsT+YrMI0njdFaP/o1cnmSnRWy4os/NaWJC7FyCHrCOwiAKUwz+smQ3cPKZ8pAAv5zM5DDBG4K4w==",
+      "sha512": "59tBslAk9733NXLrUJrwNZEzbMAcu8k344OYo+wfSVygcgZ9lgBdGIzH/nrg3LYhXceynyvTc8t5/GD4Ri0/ng==",
       "type": "package",
       "path": "system.reflection.emit.ilgeneration/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1834,7 +1833,7 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "ExpressionExtensionSQL/1.1.0": {
+    "ExpressionExtensionSQL/1.2.2": {
       "type": "project",
       "path": "../ExpressionExtensionSQL/ExpressionExtensionSQL.csproj",
       "msbuildProject": "../ExpressionExtensionSQL/ExpressionExtensionSQL.csproj"
@@ -1843,7 +1842,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "Dapper >= 1.50.5",
-      "ExpressionExtensionSQL >= 1.1.0",
+      "ExpressionExtensionSQL >= 1.2.2",
       "NETStandard.Library >= 2.0.3"
     ]
   },

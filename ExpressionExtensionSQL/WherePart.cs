@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace ExpressionExtensionSQL {
     public class WherePart {
 
         public string Sql { get;  set; }
+        public bool HasSql => !string.IsNullOrEmpty(Sql);
 
         public Dictionary<string, object> Parameters { get; private set; } = new Dictionary<string, object>();
 
@@ -51,10 +53,16 @@ namespace ExpressionExtensionSQL {
         }
 
         public static WherePart Concat(WherePart left, string @operator, WherePart right) {
+            if (right.Sql.Equals("NULL", StringComparison.InvariantCultureIgnoreCase)) {
+                @operator = @operator == "=" ? "IS" : "IS NOT";
+            }
+
             return new WherePart() {
                 Parameters = left.Parameters.Union(right.Parameters).ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
                 Sql = $"({left.Sql} {@operator} {right.Sql})"
             };
         }
+
+        public static WherePart Empty => new WherePart { Sql = string.Empty };
     }
 }
