@@ -83,7 +83,7 @@ namespace ExpressionExtensionSQL {
             if (member.Member is PropertyInfo && left) {
                 var property = (PropertyInfo)member.Member;
                 var colName = GetName<ColumnName>(property);
-                var tableName = GetName<TableName>(property.DeclaringType);
+                var tableName = GetName<TableName>(property.DeclaringType.IsAbstract ? ((ParameterExpression)member.Expression).Type : property.DeclaringType);
                 return WherePart.IsSql($"[{tableName}].[{ colName }]");
             }
             if (member.Member is FieldInfo || left == false) {
