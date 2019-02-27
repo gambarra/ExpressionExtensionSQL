@@ -4,6 +4,7 @@ using ExpressionExtensionSQL.Tests.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -21,6 +22,7 @@ namespace ExpressionExtensionSQL.Tests
                 .Query("Select * from Merchant {where}", expression: expression);
 
             merchants.Should().HaveCount(1);
+            merchants.First().Name.Should().Be("Merchant 1");
         }
     }
 }

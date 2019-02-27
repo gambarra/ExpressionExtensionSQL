@@ -10,12 +10,7 @@ namespace ExpressionExtensionSQL.Tests.Configurations
         public DapperFixture()
         {
             Context = new TestContext();
-            Context.Merchant.Add(new Merchant
-            {
-                Id = 1,
-                CreatedAt = DateTime.Now,
-                Name = "Merchant 1"
-            });
+            Context.Merchant.Add(new Merchant(1, "Merchant 1"));
             Context.SaveChanges();
         }
         public void Dispose()
