@@ -46,7 +46,7 @@ namespace ExpressionExtensionSQL.Dapper {
         }
 
         /// <summary>
-        /// Perform a multi-mapping query with 2 input types. 
+        /// Perform an object of defined <typeparamref name="TReturn"/> type. 
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
