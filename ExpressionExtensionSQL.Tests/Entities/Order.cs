@@ -13,7 +13,7 @@ namespace ExpressionExtensionSQL.Tests.Entities {
 
     }
 
-    public class Item {
+    public class Item : Entity {
         public Product Product { get; private set; }
         public int Count { get; private set; }
         public int Total { get; set; }

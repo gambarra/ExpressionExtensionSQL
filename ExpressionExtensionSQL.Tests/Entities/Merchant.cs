@@ -1,11 +1,6 @@
-﻿using System;
-
-namespace ExpressionExtensionSQL.Tests.Entities {
-    public class Merchant {
-
-        public int Id { get; set; }
+﻿namespace ExpressionExtensionSQL.Tests.Entities
+{
+    public class Merchant : Entity {        
         public string Name { get; set; }
-        public DateTime CreatedAt { get; set; }
-
     }
 }
