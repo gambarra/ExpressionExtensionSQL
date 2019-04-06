@@ -1,5 +1,6 @@
 ExpressionExtensionSQL - is a sample lambda expression to sql converter .NET
 ========================================
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12a0ce6a259141e5949289ded24f7377)](https://app.codacy.com/app/tgambarra/ExpressionExtensionSQL?utm_source=github.com&utm_medium=referral&utm_content=gambarra/ExpressionExtensionSQL&utm_campaign=Badge_Grade_Dashboard)
 
 Packages
 --------
@@ -8,8 +9,7 @@ Nugget feed: https://www.nuget.org/packages/ExpressionExtensionSQL/
 
 | Package | NuGet Stable | NuGet Pre-release | Downloads |
 | ------- | ------------ | ----------------- | --------- | 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12a0ce6a259141e5949289ded24f7377)](https://app.codacy.com/app/tgambarra/ExpressionExtensionSQL?utm_source=github.com&utm_medium=referral&utm_content=gambarra/ExpressionExtensionSQL&utm_campaign=Badge_Grade_Dashboard)
-| [ExpressionExtensionSQL](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/v/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/vpre/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/dt/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) |
+[[ExpressionExtensionSQL](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/v/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/vpre/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) | [![ExpressionExtensionSQL](https://img.shields.io/nuget/dt/ExpressionExtensionSQL.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL/) |
 | [ExpressionExtensionSQL.Dapper](https://www.nuget.org/packages/ExpressionExtensionSQL.Dapper/) | [![ExpressionExtensionSQL.Dapper](https://img.shields.io/nuget/v/ExpressionExtensionSQL.Dapper.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL.Dapper/) | [![ExpressionExtensionSQL.Dapper](https://img.shields.io/nuget/vpre/ExpressionExtensionSQL.Dapper.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL.Dapper/) | [![ExpressionExtensionSQL.Dapper](https://img.shields.io/nuget/dt/ExpressionExtensionSQL.Dapper.svg)](https://www.nuget.org/packages/ExpressionExtensionSQL.Dapper/) |
 
 Features
