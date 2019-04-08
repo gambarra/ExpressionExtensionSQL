@@ -182,7 +182,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.2.2",
+    "version": "1.2.6",
     "restore": {
       "projectUniqueName": "C:\\workfolder\\ExpressionExtensionSQL\\ExpressionExtensionSQL\\ExpressionExtensionSQL.csproj",
       "projectName": "ExpressionExtensionSQL",
