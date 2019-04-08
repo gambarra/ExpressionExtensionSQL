@@ -37,9 +37,19 @@ namespace ExpressionExtensionSQL {
             if (expression is MethodCallExpression) {
                 return MethodCallExpressionExtract(ref i, expression);
             }
+
+            if (expression is InvocationExpression) {
+                return InvocationExpressionExtract(ref i, expression);
+            }
             throw new Exception("Unsupported expression: " + expression.GetType().Name);
         }
 
+
+        private static WherePart InvocationExpressionExtract(ref int i, Expression expression) {
+            var methodCall = (InvocationExpression)expression;
+
+            return null;
+        }
         private static WherePart MethodCallExpressionExtract(ref int i, Expression expression) {
             var methodCall = (MethodCallExpression)expression;
             // LIKE queries:
@@ -52,8 +62,8 @@ namespace ExpressionExtensionSQL {
             if (methodCall.Method == typeof(string).GetMethod("EndsWith", new[] { typeof(string) })) {
                 return WherePart.Concat(Recurse(ref i, methodCall.Object), "LIKE", Recurse(ref i, methodCall.Arguments[0], prefix: "%"));
             }
-            if(methodCall.Method==typeof(string).GetMethod("Equals",new[] { typeof(string)})) {
-                return WherePart.Concat(Recurse(ref i, methodCall.Object), "=", Recurse(ref i, methodCall.Arguments[0],left:false));
+            if (methodCall.Method == typeof(string).GetMethod("Equals", new[] { typeof(string) })) {
+                return WherePart.Concat(Recurse(ref i, methodCall.Object), "=", Recurse(ref i, methodCall.Arguments[0], left: false));
             }
             // IN queries:
             if (methodCall.Method.Name == "Contains") {
@@ -116,7 +126,7 @@ namespace ExpressionExtensionSQL {
             if (Configuration.GetInstance().Entities() != null) {
                 var result = Configuration.GetInstance()
                     .Entities()
-                    .FirstOrDefault(p => p.Name().Equals(type.Name,StringComparison.CurrentCultureIgnoreCase));
+                    .FirstOrDefault(p => p.Name().Equals(type.Name, StringComparison.CurrentCultureIgnoreCase));
                 if (result != null)
                     return result.GetTableName();
             }

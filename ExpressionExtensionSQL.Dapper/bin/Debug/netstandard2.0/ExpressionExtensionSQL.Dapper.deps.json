@@ -10,7 +10,7 @@
       "ExpressionExtensionSQL.Dapper/1.1.2": {
         "dependencies": {
           "Dapper": "1.50.5",
-          "ExpressionExtensionSQL": "1.1.0",
+          "ExpressionExtensionSQL": "1.2.2",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
@@ -238,7 +238,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "ExpressionExtensionSQL/1.1.0": {
+      "ExpressionExtensionSQL/1.2.2": {
         "runtime": {
           "ExpressionExtensionSQL.dll": {}
         }
@@ -447,7 +447,7 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "ExpressionExtensionSQL/1.1.0": {
+    "ExpressionExtensionSQL/1.2.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
