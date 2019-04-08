@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ExpressionExtensionSQL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.1.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ExpressionExtensionSQL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ExpressionExtensionSQL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.1.0")]

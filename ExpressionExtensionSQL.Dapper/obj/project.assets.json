@@ -359,7 +359,7 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "ExpressionExtensionSQL/1.2.2": {
+      "ExpressionExtensionSQL/1.2.6": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -1833,7 +1833,7 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "ExpressionExtensionSQL/1.2.2": {
+    "ExpressionExtensionSQL/1.2.6": {
       "type": "project",
       "path": "../ExpressionExtensionSQL/ExpressionExtensionSQL.csproj",
       "msbuildProject": "../ExpressionExtensionSQL/ExpressionExtensionSQL.csproj"
@@ -1842,7 +1842,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "Dapper >= 1.50.5",
-      "ExpressionExtensionSQL >= 1.2.2",
+      "ExpressionExtensionSQL >= 1.2.6",
       "NETStandard.Library >= 2.0.3"
     ]
   },

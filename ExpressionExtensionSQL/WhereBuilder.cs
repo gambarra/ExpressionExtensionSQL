@@ -15,45 +15,55 @@ namespace ExpressionExtensionSQL {
         public static WherePart ToSql<T>(this Expression<Func<T, bool>> expression) {
             var i = 1;
 
-            var result = Recurse(ref i, expression.Body, isUnary: true);
+            var result = Recurse<T>(ref i, expression.Body, isUnary: true);
             result.Sql = $"{result.Sql}";
             return result;
         }
 
-        private static WherePart Recurse(ref int i, Expression expression, bool isUnary = false, string prefix = null, string postfix = null, bool left = true) {
+        private static WherePart Recurse<T>(ref int i, Expression expression, bool isUnary = false, string prefix = null, string postfix = null, bool left = true) {
 
             if (expression is UnaryExpression) {
-                return UnaryExpressionExtract(ref i, expression);
+                return UnaryExpressionExtract<T>(ref i, expression);
             }
             if (expression is BinaryExpression) {
-                return BinaryExpressionExtract(ref i, expression);
+                return BinaryExpressionExtract<T>(ref i, expression);
             }
             if (expression is ConstantExpression) {
-                return ConstantExpressionExtract(ref i, expression, isUnary, prefix, postfix);
+                return ConstantExpressionExtract(ref i, expression, isUnary, prefix, postfix, left);
             }
             if (expression is MemberExpression) {
-                return MemberExpressionExtract(ref i, expression, isUnary, prefix, postfix, left);
+                return MemberExpressionExtract<T>(ref i, expression, isUnary, prefix, postfix, left);
             }
             if (expression is MethodCallExpression) {
-                return MethodCallExpressionExtract(ref i, expression);
+                return MethodCallExpressionExtract<T>(ref i, expression);
+            }
+
+            if (expression is InvocationExpression) {
+                return InvocationExpressionExtract<T>(ref i, expression,left);
             }
             throw new Exception("Unsupported expression: " + expression.GetType().Name);
         }
 
-        private static WherePart MethodCallExpressionExtract(ref int i, Expression expression) {
+
+        private static WherePart InvocationExpressionExtract<T>(ref int i, Expression expression, bool left ) {
+            var methodCall = (InvocationExpression)expression;
+
+            return Recurse<T>(ref i, ((Expression<Func<T, bool>>)methodCall.Expression).Body,left: left);
+        }
+        private static WherePart MethodCallExpressionExtract<T>(ref int i, Expression expression) {
             var methodCall = (MethodCallExpression)expression;
             // LIKE queries:
             if (methodCall.Method == typeof(string).GetMethod("Contains", new[] { typeof(string) })) {
-                return WherePart.Concat(Recurse(ref i, methodCall.Object), "LIKE", Recurse(ref i, methodCall.Arguments[0], prefix: "%", postfix: "%"));
+                return WherePart.Concat(Recurse<T>(ref i, methodCall.Object), "LIKE", Recurse<T>(ref i, methodCall.Arguments[0], prefix: "%", postfix: "%"));
             }
             if (methodCall.Method == typeof(string).GetMethod("StartsWith", new[] { typeof(string) })) {
-                return WherePart.Concat(Recurse(ref i, methodCall.Object), "LIKE", Recurse(ref i, methodCall.Arguments[0], postfix: "%"));
+                return WherePart.Concat(Recurse<T>(ref i, methodCall.Object), "LIKE", Recurse<T>(ref i, methodCall.Arguments[0], postfix: "%"));
             }
             if (methodCall.Method == typeof(string).GetMethod("EndsWith", new[] { typeof(string) })) {
-                return WherePart.Concat(Recurse(ref i, methodCall.Object), "LIKE", Recurse(ref i, methodCall.Arguments[0], prefix: "%"));
+                return WherePart.Concat(Recurse<T>(ref i, methodCall.Object), "LIKE", Recurse<T>(ref i, methodCall.Arguments[0], prefix: "%"));
             }
-            if(methodCall.Method==typeof(string).GetMethod("Equals",new[] { typeof(string)})) {
-                return WherePart.Concat(Recurse(ref i, methodCall.Object), "=", Recurse(ref i, methodCall.Arguments[0],left:false));
+            if (methodCall.Method == typeof(string).GetMethod("Equals", new[] { typeof(string) })) {
+                return WherePart.Concat(Recurse<T>(ref i, methodCall.Object), "=", Recurse<T>(ref i, methodCall.Arguments[0], left: false));
             }
             // IN queries:
             if (methodCall.Method.Name == "Contains") {
@@ -71,24 +81,36 @@ namespace ExpressionExtensionSQL {
                     throw new Exception("Unsupported method call: " + methodCall.Method.Name);
                 }
                 var values = (IEnumerable)GetValue(collection);
-                return WherePart.Concat(Recurse(ref i, property), "IN", WherePart.IsCollection(ref i, values));
+                return WherePart.Concat(Recurse<T>(ref i, property), "IN", WherePart.IsCollection(ref i, values));
             }
             throw new Exception("Unsupported method call: " + methodCall.Method.Name);
         }
 
-        private static WherePart MemberExpressionExtract(ref int i, Expression expression, bool isUnary, string prefix, string postfix, bool left) {
+        private static WherePart MemberExpressionExtract<T>(ref int i, Expression expression, bool isUnary, string prefix, string postfix, bool left) {
             var member = (MemberExpression)expression;
 
             if (isUnary && member.Type == typeof(bool)) {
-                return WherePart.Concat(Recurse(ref i, expression), "=", WherePart.IsSql("1"));
+                return WherePart.Concat(Recurse<T>(ref i, expression), "=", WherePart.IsSql("1"));
             }
 
-            if (member.Member is PropertyInfo && left) {
-                var property = (PropertyInfo)member.Member;
-                var colName = GetName<ColumnName>(property);
-                var tableName = GetName<TableName>(property.DeclaringType.IsAbstract ? ((ParameterExpression)member.Expression).Type : property.DeclaringType);
-                return WherePart.IsSql($"[{tableName}].[{ colName }]");
+            if (member.Member is PropertyInfo)
+            {
+                var property = (PropertyInfo) member.Member;
+                if ( left) {              
+                    var colName = GetName<ColumnName>(property);
+                    var tableName = GetName<TableName>(property.DeclaringType.IsAbstract ? ((ParameterExpression)member.Expression).Type : property.DeclaringType);
+                    return WherePart.IsSql($"[{tableName}].[{ colName }]");
+                }
+                else if (left == false && property.PropertyType== typeof(bool)) {               
+                    var colName = GetName<ColumnName>(property);
+                    var tableName = GetName<TableName>(property.DeclaringType.IsAbstract ? ((ParameterExpression)member.Expression).Type : property.DeclaringType);
+
+                    return WherePart.IsSql($"[{tableName}].[{ colName }]=1");
+                }
             }
+       
+
+       
             if (member.Member is FieldInfo || left == false) {
                 var value = GetValue(member);
                 if (value is string) {
@@ -116,7 +138,7 @@ namespace ExpressionExtensionSQL {
             if (Configuration.GetInstance().Entities() != null) {
                 var result = Configuration.GetInstance()
                     .Entities()
-                    .FirstOrDefault(p => p.Name().Equals(type.Name,StringComparison.CurrentCultureIgnoreCase));
+                    .FirstOrDefault(p => p.Name().Equals(type.Name, StringComparison.CurrentCultureIgnoreCase));
                 if (result != null)
                     return result.GetTableName();
             }
@@ -128,7 +150,7 @@ namespace ExpressionExtensionSQL {
             return attributeName.GetName();
         }
 
-        private static WherePart ConstantExpressionExtract(ref int i, Expression expression, bool isUnary, string prefix, string postfix) {
+        private static WherePart ConstantExpressionExtract(ref int i, Expression expression, bool isUnary, string prefix, string postfix, bool left) {
             var constant = (ConstantExpression)expression;
             var value = constant.Value;
 
@@ -142,19 +164,22 @@ namespace ExpressionExtensionSQL {
                 value = prefix + (string)value + postfix;
             }
             if (value is bool && !isUnary) {
-                return WherePart.IsSql(((bool)value) ? "1" : "0");
+                var result = ((bool)value) ? "1" : "0";
+                if (left)
+                    result = result.Equals("1") ? "1=1" : "0=0";
+                return WherePart.IsSql(result);
             }
             return WherePart.IsParameter(i++, value);
         }
 
-        private static WherePart BinaryExpressionExtract(ref int i, Expression expression) {
+        private static WherePart BinaryExpressionExtract<T>(ref int i, Expression expression) {
             var body = (BinaryExpression)expression;
-            return WherePart.Concat(Recurse(ref i, body.Left, left: true), NodeTypeToString(body.NodeType), Recurse(ref i, body.Right, left: false));
+            return WherePart.Concat(Recurse<T>(ref i, body.Left, left: true), NodeTypeToString(body.NodeType), Recurse<T>(ref i, body.Right, left: false));
         }
 
-        private static WherePart UnaryExpressionExtract(ref int i, Expression expression) {
+        private static WherePart UnaryExpressionExtract<T>(ref int i, Expression expression) {
             var unary = (UnaryExpression)expression;
-            return WherePart.Concat(NodeTypeToString(unary.NodeType), Recurse(ref i, unary.Operand, true));
+            return WherePart.Concat(NodeTypeToString(unary.NodeType), Recurse<T>(ref i, unary.Operand, true));
         }
 
         private static object GetValue(Expression member) {
