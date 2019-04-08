@@ -10,5 +10,6 @@ namespace ExpressionExtensionSQL.Tests.Entities {
         public int ProductGroupID { get; set; }
         public int StatusID { get; set; }          
         public Merchant Merchant { get; set; }
+        public bool Active { get; set; }  
     }
 }
