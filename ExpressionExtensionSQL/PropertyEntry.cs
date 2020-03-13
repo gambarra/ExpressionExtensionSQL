@@ -1,34 +1,35 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
-namespace ExpressionExtensionSQL {
-    public class PropertyEntry<TEntity, TProperty> : IPropertyMap {
-
+namespace ExpressionExtensionSQL
+{
+    public class PropertyEntry<TEntity, TProperty> : IPropertyMap
+    {
         private string columnName;
-    
-        public PropertyEntry(PropertyInfo propertyInfo) {
+        private PropertyInfo propertyInfo;
+
+        public PropertyEntry(PropertyInfo propertyInfo)
+        {
             this.propertyInfo = propertyInfo;
         }
 
-        public string GetColumnName() {
-            if (string.IsNullOrWhiteSpace(columnName))
-                return typeof(TProperty).Name;
-            return columnName;
+        public string GetColumnName()
+        {
+            return string.IsNullOrWhiteSpace(columnName) ? typeof(TProperty).Name : columnName;
         }
 
-        public void SetColumnName(string columnName) {
+        public void SetColumnName(string columnName)
+        {
             this.columnName = columnName;
         }
 
-        private PropertyInfo propertyInfo;
-        public PropertyInfo Type() {
+        public PropertyInfo Type()
+        {
+            if (propertyInfo != null) return propertyInfo;
 
-            if (propertyInfo == null) {
-                var entity =  typeof(TEntity);
-                var property = typeof(TProperty);
-                propertyInfo = entity.GetProperties().ToList().FirstOrDefault(p => p.GetType() == property);
-            }
+            var entity = typeof(TEntity);
+            var property = typeof(TProperty);
+            propertyInfo = entity.GetProperties().ToList().FirstOrDefault(p => p.GetType() == property);
             return propertyInfo;
         }
     }

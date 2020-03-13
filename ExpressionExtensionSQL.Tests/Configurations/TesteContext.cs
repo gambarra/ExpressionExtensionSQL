@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using ExpressionExtensionSQL.Tests.Entities;
+﻿using ExpressionExtensionSQL.Tests.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace ExpressionExtensionSQL.Tests.Configurations
 {
@@ -12,7 +9,7 @@ namespace ExpressionExtensionSQL.Tests.Configurations
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
 
-        public TestContext() : base()
+        public TestContext()
         {
             Database.EnsureCreated();
         }

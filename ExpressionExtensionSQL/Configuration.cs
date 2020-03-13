@@ -1,40 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace ExpressionExtensionSQL
 {
-
     public class Configuration
     {
-
-        private static Configuration instance=null;
-        public static Configuration GetInstance() {
-            if (instance == null)
-                instance = new Configuration();
-            return instance;
-        }
-
-        private  List<IEntityMap> entitiesMaps;
+        private static Configuration instance;
+        private List<IEntityMap> entitiesMaps;
         private List<IPropertyMap> propertiesMaps;
 
-        internal List<IEntityMap> Entities() {
+        public static Configuration GetInstance()
+        {
+            return instance ?? (instance = new Configuration());
+        }
+
+        internal List<IEntityMap> Entities()
+        {
             return entitiesMaps;
         }
-        internal List<IPropertyMap> Properties() {
+
+        internal List<IPropertyMap> Properties()
+        {
             return propertiesMaps;
         }
-        internal void AddEntity(IEntityMap entity) {
 
+        internal void AddEntity(IEntityMap entity)
+        {
             if (entitiesMaps == null)
-                this.entitiesMaps = new List<IEntityMap>();
-            this.entitiesMaps.Add(entity);
+                entitiesMaps = new List<IEntityMap>();
+            entitiesMaps.Add(entity);
         }
-        internal void AddProperty(IPropertyMap propertyMap) {
+
+        internal void AddProperty(IPropertyMap propertyMap)
+        {
             if (propertiesMaps == null)
-                this.propertiesMaps = new List<IPropertyMap>();
-            this.propertiesMaps.Add(propertyMap);
+                propertiesMaps = new List<IPropertyMap>();
+            propertiesMaps.Add(propertyMap);
         }
-
-
     }
 }

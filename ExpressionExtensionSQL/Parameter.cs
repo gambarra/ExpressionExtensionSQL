@@ -10,7 +10,7 @@ namespace ExpressionExtensionSQL
             Value = value;
             Type = type ?? GetValueType(value);
         }
-        
+
         public string Key { get; }
         public object Value { get; }
         public DbType? Type { get; }
@@ -22,6 +22,6 @@ namespace ExpressionExtensionSQL
                 case string _: return DbType.AnsiString;
                 default: return null; // Use SqlMapper DefaultTypes mapping
             }
-        } 
+        }
     }
 }
