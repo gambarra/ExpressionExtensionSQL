@@ -17,11 +17,12 @@ namespace ExpressionExtensionSQL
 
         private static DbType? GetValueType(object value)
         {
-            switch (value)
+            if (value is string)
             {
-                case string _: return DbType.AnsiString;
-                default: return null; // Use SqlMapper DefaultTypes mapping
+                return DbType.AnsiString;
             }
+            
+            return null; // Use SqlMapper DefaultTypes mapping
         }
     }
 }

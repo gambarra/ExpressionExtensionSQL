@@ -25,7 +25,10 @@ namespace ExpressionExtensionSQL
 
         public PropertyInfo Type()
         {
-            if (propertyInfo != null) return propertyInfo;
+            if (propertyInfo != null)
+            {
+                return propertyInfo;
+            }
 
             var entity = typeof(TEntity);
             var property = typeof(TProperty);

@@ -23,12 +23,84 @@ namespace ExpressionExtensionSQL.Dapper
         public static IEnumerable<dynamic> Query(this IDbConnection cnn,
             string sql,
             Expression<Func<dynamic, bool>> expression,
-            IDbTransaction transaction = null,
-            bool buffered = true,
-            int? commandTimeout = null, CommandType? commandType = null)
+            IDbTransaction transaction,
+            bool buffered,
+            int? commandTimeout, CommandType? commandType)
         {
             var whereSql = GetWhere(expression, sql);
             return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, commandType);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, null, true, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, true, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer the results in memory.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction,
+            bool buffered)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer the results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction,
+            bool buffered,
+            int? commandTimeout)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, null);
         }
 
         /// <summary>
