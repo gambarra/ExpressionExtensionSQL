@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExpressionExtensionSQL.Tests.Configurations
 {
-    public class TestContext : DbContext
+    public sealed class TestContext : DbContext
     {
         public DbSet<Merchant> Merchant { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
 
-        public TestContext() : base() 
+        public TestContext()
         {
             Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=test.db");
+            optionsBuilder.UseSqlite($"Data Source=test.db");
         }
     }
 }

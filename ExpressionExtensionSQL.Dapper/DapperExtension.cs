@@ -5,22 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ExpressionExtensionSQL.Dapper {
-    public static class DapperExtension {
-
-
-        private static KeyValuePair<string, DynamicParameters> GetWhere<TReturn>(Expression<Func<TReturn, bool>> expression, string sql) {
-            var whereSql = expression?.ToSql() ?? WherePart.Empty;
-            var parameter = new DynamicParameters();
-
-            foreach (var param in whereSql.Parameters) {
-                parameter.Add(param.Key, param.Value);
-            }
-            sql = sql.Replace("{where}", whereSql.HasSql ? $" WHERE {whereSql.Sql}" : string.Empty);
-
-            return new KeyValuePair<string, DynamicParameters>(sql, parameter);
-        }
-
+namespace ExpressionExtensionSQL.Dapper
+{
+    public static class DapperExtension
+    {
         /// <summary>
         ///  Return a sequence of dynamic objects with properties matching the columns.
         /// </summary>
@@ -35,12 +23,84 @@ namespace ExpressionExtensionSQL.Dapper {
         public static IEnumerable<dynamic> Query(this IDbConnection cnn,
             string sql,
             Expression<Func<dynamic, bool>> expression,
-            IDbTransaction transaction = null,
-            bool buffered = true,
-            int? commandTimeout = null, CommandType? commandType = null) {
-
+            IDbTransaction transaction,
+            bool buffered,
+            int? commandTimeout, CommandType? commandType)
+        {
             var whereSql = GetWhere(expression, sql);
             return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, commandType);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, null, true, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, true, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer the results in memory.</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction,
+            bool buffered)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, null, null);
+        }
+        
+        /// <summary>
+        ///  Return a sequence of dynamic objects with properties matching the columns.
+        /// </summary>
+        /// <param name="cnn">The connection to query on.</param>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="expression">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer the results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <returns></returns>
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn,
+            string sql,
+            Expression<Func<dynamic, bool>> expression,
+            IDbTransaction transaction,
+            bool buffered,
+            int? commandTimeout)
+        {
+            var whereSql = GetWhere(expression, sql);
+            return cnn.Query(whereSql.Key, whereSql.Value, transaction, buffered, commandTimeout, null);
         }
 
         /// <summary>
@@ -67,11 +127,12 @@ namespace ExpressionExtensionSQL.Dapper {
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
 
         /// <summary>
@@ -99,12 +160,12 @@ namespace ExpressionExtensionSQL.Dapper {
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-
-
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TThird, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
 
 
@@ -134,13 +195,14 @@ namespace ExpressionExtensionSQL.Dapper {
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-
-
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TThird, TFourth, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
+
         /// <summary>
         /// Perform a multi-mapping query with 5 input types. 
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
@@ -161,20 +223,22 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn,
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(
+            this IDbConnection cnn,
             string sql,
             Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-
-
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
+
         /// <summary>
         /// Perform a multi-mapping query with 6 input types. 
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
@@ -196,20 +260,22 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn,
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(
+            this IDbConnection cnn,
             string sql,
             Expression<Func<TReturn, bool>> expression,
             Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-
-
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
+
         /// <summary>
         /// Perform a multi-mapping query with 7 input types. If you need more types -> use Query with Type[] parameter.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
@@ -232,18 +298,20 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn,
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(
+            this IDbConnection cnn,
             string sql,
             Expression<Func<TReturn, bool>> expression,
-            Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh,TReturn> map,
+            Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map,
             IDbTransaction transaction = null,
             bool buffered = true, string splitOn = "Id",
             int? commandTimeout = null,
-            CommandType? commandType = null) {
-            
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
 
-            return cnn.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth,TSeventh, TReturn>(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout, commandType);
+            return cnn.Query(whereSql.Key, map, whereSql.Value, transaction, buffered, splitOn, commandTimeout,
+                commandType);
         }
 
         /// <summary>
@@ -258,10 +326,15 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public static IEnumerable<T> Query<T>(this IDbConnection cnn, string sql, Expression<Func<T, bool>> expression, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) {
+        public static IEnumerable<T> Query<T>(this IDbConnection cnn, string sql, Expression<Func<T, bool>> expression,
+            IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null,
+            CommandType? commandType = null)
+        {
             var whereSql = GetWhere(expression, sql);
-            return cnn.Query<T>(whereSql.Key, whereSql.Value, transaction:transaction,buffered:buffered,commandTimeout:commandTimeout,commandType:commandType);
+            return cnn.Query<T>(whereSql.Key, whereSql.Value, transaction: transaction, buffered: buffered,
+                commandTimeout: commandTimeout, commandType: commandType);
         }
+
         /// <summary>
         /// Execute Scalar
         /// </summary>
@@ -271,9 +344,23 @@ namespace ExpressionExtensionSQL.Dapper {
         /// <param name="sql"></param>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public static T ExecuteScalar<T,TReturn>(this IDbConnection cnn, string sql, Expression<Func<TReturn, bool>> expression) {
+        public static T ExecuteScalar<T, TReturn>(this IDbConnection cnn, string sql,
+            Expression<Func<TReturn, bool>> expression)
+        {
             var whereSql = GetWhere(expression, sql);
             return cnn.ExecuteScalar<T>(whereSql.Key, whereSql.Value);
+        }
+        
+        private static KeyValuePair<string, DynamicParameters> GetWhere<TReturn>(Expression<Func<TReturn, bool>> expression, string sql) {
+            var whereSql = expression?.ToSql() ?? WherePart.Empty;
+            var parameter = new DynamicParameters();
+
+            foreach (var param in whereSql.Parameters) {
+                parameter.Add(param.Key, param.Value, param.Type);
+            }
+            sql = sql.Replace("{where}", whereSql.HasSql ? $" WHERE {whereSql.Sql}" : string.Empty);
+
+            return new KeyValuePair<string, DynamicParameters>(sql, parameter);
         }
     }
 }

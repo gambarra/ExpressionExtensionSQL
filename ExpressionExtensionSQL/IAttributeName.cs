@@ -1,6 +1,7 @@
-﻿namespace ExpressionExtensionSQL {
-    public interface IAttributeName {
-
+﻿namespace ExpressionExtensionSQL
+{
+    public interface IAttributeName
+    {
         string GetName();
     }
 }

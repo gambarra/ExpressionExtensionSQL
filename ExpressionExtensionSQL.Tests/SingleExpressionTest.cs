@@ -1,15 +1,14 @@
-﻿using ExpressionExtensionSQL.Extensions;
+﻿using System;
+using System.Linq.Expressions;
+using ExpressionExtensionSQL.Extensions;
 using ExpressionExtensionSQL.Tests.Entities;
 using FluentAssertions;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
-namespace ExpressionExtensionSQL.Test
+namespace ExpressionExtensionSQL.Tests
 {
     public class SingleExpressionTest
     {
-
         [Fact(DisplayName = "SingleExpression - Equal")]
         public void EqualExpression()
         {
@@ -17,6 +16,7 @@ namespace ExpressionExtensionSQL.Test
             var where = expression.ToSql();
             where.Sql.Should().Be("([Merchant].[Name] = @1)");
         }
+
         [Fact(DisplayName = "SingleExpression - Annotation - Equal")]
         public void EqualWithAnnotationExpression()
         {
@@ -85,7 +85,6 @@ namespace ExpressionExtensionSQL.Test
         [Fact(DisplayName = "SingleExpression - FluentMap - Equal")]
         public void EqualWithFluentMapExpression()
         {
-
             Configuration.GetInstance().Entity<Order>().ToTable("tblTeste");
             Configuration.GetInstance().Entity<Order>().Property(p => p.TotalAmount).ToColumn("valor");
             Expression<Func<Order, bool>> expression = x => x.TotalAmount == 1;

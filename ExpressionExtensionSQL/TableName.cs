@@ -1,16 +1,20 @@
 ﻿using System;
 
-namespace ExpressionExtensionSQL {
+namespace ExpressionExtensionSQL
+{
     [AttributeUsage(AttributeTargets.Class)]
-    public class TableName : Attribute, IAttributeName {
-
+    public class TableName : Attribute, IAttributeName
+    {
         private string name;
-        public TableName(string name) {
+
+        public TableName(string name)
+        {
             this.name = name;
         }
-        
 
-        public string GetName() {
+
+        public string GetName()
+        {
             return name;
         }
     }

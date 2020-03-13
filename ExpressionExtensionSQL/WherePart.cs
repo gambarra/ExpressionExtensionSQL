@@ -4,65 +4,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ExpressionExtensionSQL {
+namespace ExpressionExtensionSQL
+{
+    public class WherePart
+    {
+        private WherePart(string sql, params Parameter[] parameters) : this(sql, parameters.ToList())
+        {
+        }
 
-    public class WherePart {
+        private WherePart(string sql, IEnumerable<Parameter> parameters)
+        {
+            Sql = sql;
+            Parameters = new List<Parameter>(parameters);
+        }
 
-        public string Sql { get;  set; }
+        public string Sql { get; }
         public bool HasSql => !string.IsNullOrEmpty(Sql);
 
-        public Dictionary<string, object> Parameters { get; private set; } = new Dictionary<string, object>();
+        public IReadOnlyList<Parameter> Parameters { get; }
 
-        public static WherePart IsSql(string sql) {
-            return new WherePart() {
-                Parameters = new Dictionary<string, object>(),
-                Sql = sql
-            };
+        public static WherePart IsSql(string sql)
+        {
+            return new WherePart(sql);
         }
 
-        public static WherePart IsParameter(int count, object value) {
-            return new WherePart() {
-                Parameters = { { count.ToString(), value } },
-                Sql = $"@{count}"
-            };
+        public static WherePart IsParameter(int count, object value)
+        {
+            return new WherePart($"@{count}", new Parameter(count.ToString(), value));
         }
 
-        public static WherePart IsCollection(ref int countStart, IEnumerable values) {
-            var parameters = new Dictionary<string, object>();
+        public static WherePart IsCollection(ref int countStart, IEnumerable values)
+        {
+            var parameters = new List<Parameter>();
             var sql = new StringBuilder("(");
-            foreach (var value in values) {
-                parameters.Add((countStart).ToString(), value);
+            foreach (var value in values)
+            {
+                parameters.Add(new Parameter(countStart.ToString(), value));
                 sql.Append($"@{countStart},");
                 countStart++;
             }
-            if (sql.Length == 1) {
+
+            if (sql.Length == 1)
+            {
                 sql.Append("null,");
             }
+
             sql[sql.Length - 1] = ')';
-            return new WherePart() {
-                Parameters = parameters,
-                Sql = sql.ToString()
-            };
+            return new WherePart(sql.ToString(), parameters);
         }
 
-        public static WherePart Concat(string @operator, WherePart operand) {
-            return new WherePart() {
-                Parameters = operand.Parameters,
-                Sql = $"({@operator} {operand.Sql})"
-            };
+        public static WherePart Concat(string @operator, WherePart operand)
+        {
+            return new WherePart($"({@operator} {operand.Sql})", operand.Parameters);
         }
 
-        public static WherePart Concat(WherePart left, string @operator, WherePart right) {
-            if (right.Sql.Equals("NULL", StringComparison.InvariantCultureIgnoreCase)) {
+        public static WherePart Concat(WherePart left, string @operator, WherePart right)
+        {
+            if (right.Sql.Equals("NULL", StringComparison.InvariantCultureIgnoreCase))
+            {
                 @operator = @operator == "=" ? "IS" : "IS NOT";
             }
 
-            return new WherePart() {
-                Parameters = left.Parameters.Union(right.Parameters).ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
-                Sql = $"({left.Sql} {@operator} {right.Sql})"
-            };
+            return new WherePart($"({left.Sql} {@operator} {right.Sql})", left.Parameters.Union(right.Parameters));
         }
 
-        public static WherePart Empty => new WherePart { Sql = string.Empty };
+        public static WherePart Empty => new WherePart(string.Empty);
     }
 }
