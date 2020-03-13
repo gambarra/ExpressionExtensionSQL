@@ -1,11 +1,11 @@
-﻿using ExpressionExtensionSQL.Extensions;
+﻿using System;
+using System.Linq.Expressions;
+using ExpressionExtensionSQL.Extensions;
 using ExpressionExtensionSQL.Tests.Entities;
 using FluentAssertions;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
-namespace ExpressionExtensionSQL.Test
+namespace ExpressionExtensionSQL.Tests
 {
     public class SingleExpressionTest
     {

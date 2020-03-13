@@ -13,6 +13,7 @@ namespace ExpressionExtensionSQL.Tests.Configurations
             Context.Merchant.Add(new Merchant(1, "Merchant 1"));
             Context.SaveChanges();
         }
+
         public void Dispose()
         {
             Context.Database.EnsureDeleted();

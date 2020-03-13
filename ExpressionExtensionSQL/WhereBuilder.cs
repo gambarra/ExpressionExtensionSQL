@@ -16,7 +16,7 @@ namespace ExpressionExtensionSQL {
             var i = 1;
 
             var result = Recurse<T>(ref i, expression.Body, isUnary: true);
-            result.Sql = $"{result.Sql}";
+            // result.Sql = $"{result.Sql}"; ?????????????????????
             return result;
         }
 
@@ -154,22 +154,23 @@ namespace ExpressionExtensionSQL {
             var constant = (ConstantExpression)expression;
             var value = constant.Value;
 
-            if (value is null) {
-                return WherePart.IsSql("NULL");
+            switch (value)
+            {
+                case null:
+                    return WherePart.IsSql("NULL");
+                case int _:
+                    return WherePart.IsSql(value.ToString());
+                case string text:
+                    value = prefix + text + postfix;
+                    break;
             }
-            if (value is int) {
-                return WherePart.IsSql(value.ToString());
-            }
-            if (value is string) {
-                value = prefix + (string)value + postfix;
-            }
-            if (value is bool && !isUnary) {
-                var result = ((bool)value) ? "1" : "0";
-                if (left)
-                    result = result.Equals("1") ? "1=1" : "0=0";
-                return WherePart.IsSql(result);
-            }
-            return WherePart.IsParameter(i++, value);
+
+            if (!(value is bool) || isUnary) return WherePart.IsParameter(i++, value);
+            
+            var result = ((bool)value) ? "1" : "0";
+            if (left)
+                result = result.Equals("1") ? "1=1" : "0=0";
+            return WherePart.IsSql(result);
         }
 
         private static WherePart BinaryExpressionExtract<T>(ref int i, Expression expression) {
@@ -229,7 +230,7 @@ namespace ExpressionExtensionSQL {
                 case ExpressionType.Subtract:
                     return "-";
             }
-            return "";//throw new Exception($"Unsupported node type: {nodeType}");
+            return string.Empty;//throw new Exception($"Unsupported node type: {nodeType}");
         }
 
         public static List<T> AsList<T>(this IEnumerable<T> source) =>

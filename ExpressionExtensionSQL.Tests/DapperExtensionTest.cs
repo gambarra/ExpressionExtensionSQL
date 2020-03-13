@@ -18,8 +18,10 @@ namespace ExpressionExtensionSQL.Tests
         public void SelectInheritedTypeSuccess()
         {
             Expression<Func<Merchant, bool>> expression = x => x.Id == 1;
+            
             var merchants = Fixture.Context.Database.GetDbConnection()
-                .Query("Select * from Merchant {where}", expression: expression);
+                .Query("Select * from Merchant {where}", expression: expression)
+                .ToList();
 
             merchants.Should().HaveCount(1);
             merchants.First().Name.Should().Be("Merchant 1");

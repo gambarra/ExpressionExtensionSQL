@@ -14,7 +14,7 @@ namespace ExpressionExtensionSQL.Dapper {
             var parameter = new DynamicParameters();
 
             foreach (var param in whereSql.Parameters) {
-                parameter.Add(param.Key, param.Value);
+                parameter.Add(param.Key, param.Value, param.Type);
             }
             sql = sql.Replace("{where}", whereSql.HasSql ? $" WHERE {whereSql.Sql}" : string.Empty);
 
