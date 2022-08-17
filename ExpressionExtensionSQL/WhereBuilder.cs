@@ -208,11 +208,14 @@ namespace ExpressionExtensionSQL
                     break;
             }
 
-            if (!(value is bool) || isUnary) return WherePart.IsParameter(i++, value);
+            if (!(value is bool boolValue) || isUnary) return WherePart.IsParameter(i++, value);
 
-            var result = ((bool) value) ? "1" : "0";
+            string result;
             if (left)
-                result = result.Equals("1") ? "1=1" : "0=0";
+                result = boolValue ? "1=1" : "0=1";
+            else
+                result = boolValue ? "1" : "0";
+
             return WherePart.IsSql(result);
         }
 
